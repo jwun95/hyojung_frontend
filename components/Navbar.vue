@@ -2,16 +2,31 @@
     <nav class="nav flex-row">
     <NuxtLink to="/" class="nav__title">SHIN HYO JUNG</NuxtLink>
     <ul class="nav__items">
-        <li class="item"><NuxtLink to="/" class="active">Home</NuxtLink></li>
-        <li class="item"><NuxtLink to="/projects">Projects</NuxtLink></li>
-        <li class="item"><NuxtLink to="/info">Info</NuxtLink></li>
+        <li class="item"><NuxtLink to="/" :class="{'active' : currentSlug === 'index'}">Home</NuxtLink></li>
+        <li class="item"><NuxtLink to="/projects" :class="{'active' : currentSlug === 'projects'}">Projects</NuxtLink></li>
+        <li class="item"><NuxtLink to="/info" :class="{'active' : currentSlug === 'info'}">Info</NuxtLink></li>
     </ul>
     </nav>
 </template>
 
 <script>
     export default {
-        name: 'MainNavbar'
+        name: 'MainNavbar',
+        data() {
+          return {
+            currentSlug: ''
+          }
+        },
+        watch: {
+            $route: {
+                immediate: true,
+                handler(newVal, oldVal) {
+                    if (newVal) {
+                        this.currentSlug = newVal.name;
+                    }
+                },
+            },
+        }
     }
 </script>
 

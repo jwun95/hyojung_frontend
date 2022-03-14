@@ -9,7 +9,7 @@
 }
 
 html {
-    overflow-x: scroll;
+    overflow-x: scroll !important;
 }
 
 a {
@@ -25,6 +25,15 @@ button {
     border: none;
     cursor: pointer;
     background: white;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.5s;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
 }
 
 // flex
