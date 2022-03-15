@@ -44,7 +44,6 @@
 </script>
 
 <style lang="scss" scoped>
-// nav
 .nav {
   justify-content: space-between;
   font-family: "Smooch Sans", sans-serif;
