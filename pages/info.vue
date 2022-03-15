@@ -1,52 +1,14 @@
 <template>
   <div class="profile">
     <section class="profile__image flex-row">
-      <img src="~/static/images/banner-image.png" alt="profile-image" />
+      <img :src="serverUrl + infopage.profile_image.file" alt="profile-image" />
     </section>
-    <section class="profile__text flex-row">
-      <div class="text__left flex-column">
-        <div ref="test" class="content">
-          <div class="content__title">신효정</div>
-          <ul class="content__text">
-            <li>2017 - 2021 계명대학교</li>
-          </ul>
+    <section class="profile__text is-flex is-flex-direction-column is-flex-wrap-wrap is-justify-content-center">
+        <div v-for="(item, idx) in infopage.info_items" :key="idx" ref="test" class="profile__content">
+          <div class="content__title">{{ item.title }}</div>
+          <span v-dompurify-html="item.content"></span>
           <div class="divider"></div>
         </div>
-        <div ref="test" class="content">
-          <div class="content__title">교육</div>
-          <ul class="content__text">
-            <li>2017 - 2021 계명대학교</li>
-          </ul>
-          <ul class="content__text">
-            <li>2017 - 2021 계명대학교</li>
-          </ul>
-          <ul class="content__text">
-            <li>2017 - 2021 계명대학교</li>
-          </ul>
-        </div>
-      </div>
-      <div class="text__right flex-column">
-        <div class="content">
-          <div class="content__title">교육</div>
-          <ul class="content__text">
-            <li>2017 - 2021 계명대학교</li>
-          </ul>
-          <div class="divider"></div>
-        </div>
-        <div class="content">
-          <div class="content__title">교육</div>
-          <ul class="content__text">
-            <li>2017 - 2021 계명대학교</li>
-          </ul>
-          <div class="divider"></div>
-        </div>
-        <div class="content">
-          <div class="content__title">교육</div>
-          <ul class="content__text">
-            <li>2017 - 2021 계명대학교</li>
-          </ul>
-        </div>
-      </div>
     </section>
   </div>
 </template>
@@ -54,6 +16,19 @@
 <script>
 export default {
   name: 'InfoPage',
+      async fetch() {
+      await this.$store.dispatch(`infopage/getItem`)
+      .catch((e) => {
+        if(e.response.status) {
+          this.$nuxt.error({ statusCode: e.response.status, message: e.response.data.message })
+        }
+      });
+    },
+    computed: {
+      infopage() {
+        return this.$store.state.infopage.item;
+      }
+    },
   mounted() {
     const content = this.$el.querySelectorAll('.content');
     const flyingText = async () => {
@@ -87,37 +62,28 @@ export default {
   }
 
   &__text {
-    width: 60%;
+    width: 50%;
+    padding-left: 10%;
   }
 
-  .text__left {
-    width: 50%;
-  }
-
-  .text__right {
-    width: 50%;
-  }
 
   .divider {
     background-color: $primary;
     width: 70%;
     height: 2px;
-    margin: 2rem 0 2rem 0;
+    margin: 2rem 0 0 0;
   }
 
-  .content {
-    width: 80%;
+  .profile__content {
     font-family: 'Hubballi', 'IBM Plex';
-    visibility: hidden;
+    visibility: visible;
+    width: 60%;
+    height: 30%;
 
-    &__title {
+    .content__title {
       font-size: 1.5rem;
       margin-bottom: 2rem;
       font-weight: bold;
-    }
-
-    &__text {
-      margin-top: 1rem;
     }
   }
 }

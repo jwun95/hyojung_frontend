@@ -14,9 +14,22 @@
         name: 'MainNavbar',
         data() {
           return {
-            currentSlug: ''
+            currentSlug: 'index'
           }
         },
+            async fetch() {
+      await this.$store.dispatch(`homepage/getItem`)
+      .catch((e) => {
+        if(e.response.status) {
+          this.$nuxt.error({ statusCode: e.response.status, message: e.response.data.message })
+        }
+      });
+    },
+    computed: {
+      navbar() {
+        return this.$store.state.hompage.item;
+      }
+    },
         watch: {
             $route: {
                 immediate: true,
@@ -26,7 +39,7 @@
                     }
                 },
             },
-        }
+        },
     }
 </script>
 

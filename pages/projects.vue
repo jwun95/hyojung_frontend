@@ -4,25 +4,16 @@
       <div
         class="projects__intro is-size-4 has-text-weight-semibold is-flex is-flex-direction-row-reverse has-text-centered"
       >
-        Textile Designer, <br />
-        Fabric&nbsp;&nbsp;& &nbsp;&nbsp;Pattern.
+        <span v-dompurify-html="projectspage.text"></span>
       </div>
       <section class="projects__main mt-6 mb-6">
-        <ul class="projects__items is-flex is-flex-wrap-wrap">
-          <li v-for="(item, idx) in items" :key="idx" class="project__item my-3" @click="switchGallery(true, idx)">
-            <img :src="item.image" alt="test" />
+        <ul class="projects__items">
+          <li v-for="(item, idx) in projectspage.project_item" :key="idx" class="project__item my-3 mx-3" @click="switchGallery(true, idx)">
+            <img :src="serverUrl + item.image.file" alt="project-image" />
           </li>
         </ul>
       </section>
     </article>
-    <!--Modal-->
-<!--     <div v-if="modalStatus" class="image-modal">
-      <button class="closeBtn" role="button" @click="modalStatus = false"
-        >&times;</button
-      >
-      <div class="modal-content">
-      </div>
-    </div> -->
         <b-carousel
         v-if="modalStatus"
         v-model="selected"
@@ -31,20 +22,20 @@
         :indicator="false"
         :overlay="gallery"
         @click="switchGallery(true)">
-        <b-carousel-item v-for="(item, i) in items" :key="i">
+        <b-carousel-item v-for="(item, idx) in getImages" :key="idx">
             <figure class="image">
-                <img :src="item.image">
+                <img :src="item.image" alt="project-image">
             </figure>
         </b-carousel-item>
         <span v-if="gallery" class="modal-close is-large" @click="switchGallery(false)" />
         <template #list="props">
             <b-carousel-list
                 v-model="props.active"
-                :data="items"
+                :data="getImages"
                 v-bind="al"
                 as-indicator
                 @switch="props.switch($event, false)"
-             />
+            />
         </template>
         <template #overlay>
         </template>
@@ -62,54 +53,31 @@ export default {
       gallery: false,
             al: {
                 hasGrayscale: true,
-                itemsToShow: 2,
-                breakpoints: {
-                    768: {
-                        hasGrayscale: false,
-                        itemsToShow: 4
-                    },
-                    960: {
-                        hasGrayscale: true,
-                        itemsToShow: 6
-                    }
-                }
+
             },
-            items: [
-                {
-                    title: 'Slide 1',
-                    image: 'https://picsum.photos/id/0/1230/500'
-                },
-                {
-                    title: 'Slide 2',
-                    image: 'https://picsum.photos/id/1/1230/500'
-                },
-                {
-                    title: 'Slide 3',
-                    image: 'https://picsum.photos/id/2/1230/500'
-                },
-                {
-                    title: 'Slide 4',
-                    image: 'https://picsum.photos/id/3/1230/500'
-                },
-                {
-                    title: 'Slide 5',
-                    image: 'https://picsum.photos/id/4/1230/500'
-                },
-                {
-                    title: 'Slide 6',
-                    image: 'https://picsum.photos/id/5/1230/500'
-                },
-                {
-                    title: 'Slide 7',
-                    image: 'https://picsum.photos/id/6/1230/500'
-                },
-                {
-                    title: 'Slide 8',
-                    image: 'https://picsum.photos/id/7/1230/500'
-                }
-            ]
     }
   },
+      async fetch() {
+      await this.$store.dispatch(`projectspage/getItem`)
+      .catch((e) => {
+        if(e.response.status) {
+          this.$nuxt.error({ statusCode: e.response.status, message: e.response.data.message })
+        }
+      });
+    },
+    computed: {
+      projectspage() {
+        return this.$store.state.projectspage.item;
+      },
+      getImages() {
+        const items = [];
+        const images = this.$store.state.projectspage.item.project_item;
+        images.forEach(element => {
+        items.push({'image': this.serverUrl + element.image.file, 'text': element.intro})
+      });
+        return items;
+      }
+    },
   methods: {
     modalClick(id) {
       this.modalStatus = true;
@@ -133,11 +101,13 @@ export default {
 .projects {
   &__items {
     width: 100%;
+    display: inline-flex;
+    flex-wrap: wrap;
+    padding-left: 5%;
 
     li {
       position: relative;
       width: 30%;
-      margin: auto;
       height: 20rem;
       cursor: pointer;
 
@@ -169,40 +139,47 @@ export default {
   }
 }
 
-.image-modal {
-  z-index: 50;
-  position: fixed;
-  height: 100%;
-  background: #f4f4f4;
-  top: 0;
-  left: 0;
-  width: 100%;
-
-  &-content {
-    height: 100%;
-    width: 100%;
-    animation: modalopen 0.5s;
-  }
-
-  .closeBtn {
-    color: #ccc;
-    font-size: 60px;
-    margin-right: 4rem;
-    background: #f4f4f4;
-
-    &:hover,
-    &:focus {
-      color: #000;
-      text-decoration: none;
-      cursor: pointer;
-    }
-  }
-}
-
 .is-active .al img {
     filter: grayscale(0%);
 }
 .al img {
     filter: grayscale(100%);
+}
+
+.carousel {
+
+  &.is-overlay {
+    min-width: 768px;
+  }
+
+  &::v-deep .carousel-items {
+    height: 80%;
+
+    figure {
+      height: 100%;
+
+      img {
+        height: 100%;
+      }
+    }
+  }
+
+  &::v-deep .carousel-list {
+
+    height: 20%;
+
+    .carousel-slide {
+      width: 25% !important;
+
+      figure {
+        height: 100%;
+
+      img {
+        object-fit: cover;
+        height: 100%;
+      }
+      }
+    }
+  }
 }
 </style>

@@ -1,3 +1,4 @@
+const serverURL = process.env.SERVER_URL || 'http://localhost:8000'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -28,7 +29,11 @@ export default {
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/lottie-vue-player.client.js'],
+  plugins: [
+    '~/plugins/lottie-vue-player.client.js',
+    { src: '~/plugins/dompurify.js', mode: 'client' },
+    { src: '~/plugins/globals.js' },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -38,6 +43,7 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     '@nuxtjs/style-resources',
+    '@nuxtjs/dotenv',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -53,7 +59,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: serverURL + '/api',
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -65,4 +71,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+  env: {
+    serverUrl: process.env.SERVER_URL || 'http://localhost:8000',
+  },
 }

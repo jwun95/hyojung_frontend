@@ -3,14 +3,8 @@
     <div class="d-footer__info flex-column">
       <p class="d-footer__title">SHINHYOJUNG</p>
       <ul class="d-footer__icons">
-        <li class="d-footer__icon">
-          <NuxtLink to=""><i class="fa-brands fa-blogger-b"></i></NuxtLink>
-        </li>
-        <li class="d-footer__icon">
-          <NuxtLink to=""><i class="fa-brands fa-instagram"></i></NuxtLink>
-        </li>
-        <li class="d-footer__icon">
-          <NuxtLink to=""><i class="fa-brands fa-facebook-f"></i></NuxtLink>
+        <li v-for="(item, idx) in footer.social_setting" :key="idx" class="d-footer__icon">
+          <a :href="'//' + item.url" target="_blank"><i :class="item.icon"></i></a>
         </li>
       </ul>
       <span class="d-footer__copyright">copy right 2022 made by hyojung</span>
@@ -21,6 +15,30 @@
 <script>
 export default {
   name: 'MainFooter',
+      data() {
+        return {
+
+        }
+      },
+      async fetch() {
+      await this.$store.dispatch(`settings/getItem`)
+      .catch((e) => {
+        if(e.response.status) {
+          this.$nuxt.error({ statusCode: e.response.status, message: e.response.data.message })
+        }
+      });
+    },
+    computed: {
+      footer() {
+        return this.$store.state.settings.item;
+      }
+    },
+    methods: {
+      /* moveSite(site) {
+        console.log(site)
+        location.href = site;
+      } */
+    }
 }
 </script>
 
