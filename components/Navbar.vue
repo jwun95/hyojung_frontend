@@ -1,6 +1,6 @@
 <template>
     <nav class="nav flex-row">
-    <NuxtLink to="/" class="nav__title"><img v-if="navbar.logo.file" :src="serverUrl + navbar.logo.file" alt="logo"><span v-else>shinhyojung</span></NuxtLink>
+    <NuxtLink to="/" class="nav__title"><img :src="logo" alt="logo"></NuxtLink>
     <ul class="nav__items">
         <li class="item"><NuxtLink to="/" :class="{'active' : currentSlug === 'index'}">Home</NuxtLink></li>
         <li class="item"><NuxtLink to="/projects" :class="{'active' : currentSlug === 'projects'}">Projects</NuxtLink></li>
@@ -14,7 +14,8 @@
         name: 'MainNavbar',
         data() {
           return {
-            currentSlug: 'index'
+            currentSlug: 'index',
+            logo: ''
           }
         },
             async fetch() {
@@ -40,6 +41,9 @@
                 },
             },
         },
+        mounted() {
+          this.logo = this.serverUrl + this.navbar.logo.file;
+        }
     }
 </script>
 
