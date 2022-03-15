@@ -1,6 +1,7 @@
 <template>
   <div>
-    <section class="banner">
+    <Loading v-if="$fetchState.pending" />
+    <section v-else class="banner">
       <div class="banner__image">
         <!--로티 적용-->
         <client-only>
@@ -10,7 +11,7 @@
             :speed="homepage.speed"
             style="width: 768px; height: 638px"
             :loop="homepage.loop"
-            :autoplay="homepage.autoplay"
+            :autoplay="homepage.auto_play"
           ></lottie-vue-player>
         </client-only>
       </div>
@@ -27,19 +28,6 @@
 <script>
 export default {
   name: 'IndexPage',
-  data() {
-    return {
-      lottie: {
-        url: '',
-        loop: false,
-        autoplay: false,
-        speed: 0.6,
-        background: '#232323',
-      },
-      bannerTitle: 'Let',
-      intro: '',
-    }
-  },
   async fetch() {
     await this.$store.dispatch(`homepage/getItem`).catch((e) => {
       if (e.response.status) {

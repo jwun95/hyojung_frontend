@@ -1,6 +1,6 @@
 <template>
     <nav class="nav flex-row">
-    <NuxtLink to="/" class="nav__title">SHIN HYO JUNG</NuxtLink>
+    <NuxtLink to="/" class="nav__title"><img :src="serverUrl + navbar.logo.file" alt="logo"></NuxtLink>
     <ul class="nav__items">
         <li class="item"><NuxtLink to="/" :class="{'active' : currentSlug === 'index'}">Home</NuxtLink></li>
         <li class="item"><NuxtLink to="/projects" :class="{'active' : currentSlug === 'projects'}">Projects</NuxtLink></li>
@@ -27,7 +27,7 @@
     },
     computed: {
       navbar() {
-        return this.$store.state.hompage.item;
+        return this.$store.state.homepage.item;
       }
     },
         watch: {
@@ -52,10 +52,12 @@
   padding-bottom: 1rem;
 
   &__title {
-    font-size: 1.5rem;
-    letter-spacing: 0.3rem;
     margin-left: 1.5rem;
     color: black;
+
+    img {
+      height: 3rem;
+    }
   }
 
   &__items {

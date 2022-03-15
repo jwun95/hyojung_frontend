@@ -6,7 +6,8 @@
       >
         <span v-dompurify-html="projectspage.text"></span>
       </div>
-      <section class="projects__main mt-6 mb-6">
+      <Loading v-if="$fetchState.pending" />
+      <section v-else class="projects__main mt-6 mb-6">
         <ul class="projects__items">
           <li v-for="(item, idx) in projectspage.project_item" :key="idx" class="project__item my-3 mx-3" @click="switchGallery(true, idx)">
             <img :src="serverUrl + item.image.file" alt="project-image" />
@@ -27,8 +28,8 @@
                 <img :src="item.image" alt="project-image">
             </figure>
         </b-carousel-item>
-        <span v-if="gallery" class="modal-close is-large" @click="switchGallery(false)" />
         <template #list="props">
+          <div v-dompurify-html="projectspage.project_item[props.active].intro" class="carousel__text"></div>
             <b-carousel-list
                 v-model="props.active"
                 :data="getImages"
@@ -38,6 +39,7 @@
             />
         </template>
         <template #overlay>
+          <div v-if="gallery" class="modal-close is-large" @click="switchGallery(false)" />
         </template>
     </b-carousel>
   </div>
@@ -53,7 +55,6 @@ export default {
       gallery: false,
             al: {
                 hasGrayscale: true,
-
             },
     }
   },
@@ -73,15 +74,12 @@ export default {
         const items = [];
         const images = this.$store.state.projectspage.item.project_item;
         images.forEach(element => {
-        items.push({'image': this.serverUrl + element.image.file, 'text': element.intro})
+        items.push({'image': this.serverUrl + element.image.file})
       });
         return items;
       }
     },
   methods: {
-    modalClick(id) {
-      this.modalStatus = true;
-    },
         switchGallery(value, idx) {
             this.gallery = value
             if (value) {
@@ -93,7 +91,7 @@ export default {
                 this.modalStatus = false;
             }
         }
-  }
+  },
 }
 </script>
 
@@ -150,26 +148,24 @@ export default {
 
   &.is-overlay {
     min-width: 768px;
+    flex-direction: row !important;
+    flex-wrap: wrap;
   }
 
   &::v-deep .carousel-items {
+
+    width: 70%;
     height: 80%;
 
     figure {
       height: 100%;
-
-      img {
-        height: 100%;
-      }
+      display: flex;
     }
   }
 
   &::v-deep .carousel-list {
 
-    height: 20%;
-
     .carousel-slide {
-      width: 25% !important;
 
       figure {
         height: 100%;
@@ -181,5 +177,15 @@ export default {
       }
     }
   }
+}
+
+.carousel__text {
+  width: 30%;
+  background: white;
+  height: 70%;
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

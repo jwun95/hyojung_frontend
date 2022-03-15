@@ -1,21 +1,30 @@
 <template>
-  <div class="profile">
+<div>
+  <Loading v-if="$fetchState.pending" />
+  <div v-else class="profile">
     <section class="profile__image flex-row">
       <img :src="serverUrl + infopage.profile_image.file" alt="profile-image" />
     </section>
     <section class="profile__text is-flex is-flex-direction-column is-flex-wrap-wrap is-justify-content-center">
-        <div v-for="(item, idx) in infopage.info_items" :key="idx" ref="test" class="profile__content">
+        <div v-for="(item, idx) in items" :key="idx" ref="test" class="profile__content">
           <div class="content__title">{{ item.title }}</div>
           <span v-dompurify-html="item.content"></span>
           <div class="divider"></div>
         </div>
     </section>
   </div>
+</div>
 </template>
 
 <script>
 export default {
   name: 'InfoPage',
+
+  data() {
+    return {
+      items: []
+    }
+  },
       async fetch() {
       await this.$store.dispatch(`infopage/getItem`)
       .catch((e) => {
@@ -26,22 +35,31 @@ export default {
     },
     computed: {
       infopage() {
-        return this.$store.state.infopage.item;
+
+        const data = this.$store.state.infopage.item
+        data.info_items.forEach(element => {
+          this.items.push(element)
+        });
+        return data;
       }
     },
-  mounted() {
-    const content = this.$el.querySelectorAll('.content');
-    const flyingText = async () => {
-      await setTimeout(function () {
-        content.forEach((element, idx) => {
-          setTimeout(function () {
-            element.style.cssText = 'visibility: visible;'
-            element.classList.add('flying-text')
-          }, idx * 100)
+      watch: {
+        items: {
+          handler(value, oldVal) {
+                const content = this.$el.querySelectorAll('.profile__content');
+      const flyingText = async () => {
+        await setTimeout(function () {
+          content.forEach((element, idx) => {
+            setTimeout(function () {
+              element.style.cssText = 'visibility: visible;'
+              element.classList.add('flying-text')
+            }, idx * 100)
         })
       }, 100);
     }
     flyingText();
+          }
+        }
   },
 }
 </script>
@@ -76,13 +94,13 @@ export default {
 
   .profile__content {
     font-family: 'Hubballi', 'IBM Plex';
-    visibility: visible;
+    visibility: hidden;
     width: 60%;
     height: 30%;
 
     .content__title {
       font-size: 1.5rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       font-weight: bold;
     }
   }
