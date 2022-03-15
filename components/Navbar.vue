@@ -1,6 +1,6 @@
 <template>
     <nav class="nav flex-row">
-    <NuxtLink to="/" class="nav__title"><img :src="serverUrl + navbar.logo.file" alt="logo"></NuxtLink>
+    <NuxtLink to="/" class="nav__title"><img v-if="navbar.logo.file" :src="serverUrl + navbar.logo.file" alt="logo"><span v-else>shinhyojung</span></NuxtLink>
     <ul class="nav__items">
         <li class="item"><NuxtLink to="/" :class="{'active' : currentSlug === 'index'}">Home</NuxtLink></li>
         <li class="item"><NuxtLink to="/projects" :class="{'active' : currentSlug === 'projects'}">Projects</NuxtLink></li>
