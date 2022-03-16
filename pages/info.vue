@@ -3,7 +3,7 @@
   <Loading v-if="$fetchState.pending" />
   <div v-else class="profile">
     <section class="profile__image flex-row">
-      <img :src="serverUrl + infopage.profile_image.file" alt="profile-image" />
+      <img :src="infopage.profile_image.file" alt="profile-image" />
     </section>
     <section class="profile__text is-flex is-flex-direction-column is-flex-wrap-wrap is-justify-content-center">
         <div v-for="(item, idx) in items" :key="idx" ref="test" class="profile__content">

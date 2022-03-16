@@ -42,7 +42,7 @@
             },
         },
         mounted() {
-          this.logo = this.serverUrl + this.navbar.logo.file;
+          this.logo = this.navbar.logo.file;
         }
     }
 </script>

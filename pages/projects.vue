@@ -10,7 +10,7 @@
       <section v-else class="projects__main mt-6 mb-6">
         <ul class="projects__items">
           <li v-for="(item, idx) in projectspage.project_item" :key="idx" class="project__item my-3 mx-3" @click="switchGallery(true, idx)">
-            <img :src="serverUrl + item.image.file" alt="project-image" />
+            <img :src="item.image.file" alt="project-image" />
           </li>
         </ul>
       </section>
@@ -74,7 +74,7 @@ export default {
         const items = [];
         const images = this.$store.state.projectspage.item.project_item;
         images.forEach(element => {
-        items.push({'image': this.serverUrl + element.image.file})
+        items.push({'image': element.image.file})
       });
         return items;
       }

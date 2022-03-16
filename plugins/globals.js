@@ -3,7 +3,7 @@ import Vue from 'vue'
 Vue.mixin({
   data() {
     return {
-      serverUrl: process.env.serverUrl,
+      serverUrl: process.env.SERVER_URL,
     }
   },
   methods: {
