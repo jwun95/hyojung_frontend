@@ -20,6 +20,9 @@
         },
             async fetch() {
       await this.$store.dispatch(`homepage/getItem`)
+      .then((response) => {
+        this.logo = response.data.logo.file;
+      })
       .catch((e) => {
         if(e.response.status) {
           this.$nuxt.error({ statusCode: e.response.status, message: e.response.data.message })
@@ -41,10 +44,7 @@
                 },
             },
         },
-        mounted() {
-          this.logo = this.navbar.logo.file;
-        }
-    }
+}
 </script>
 
 <style lang="scss" scoped>

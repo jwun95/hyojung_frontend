@@ -29,7 +29,19 @@
             </figure>
         </b-carousel-item>
         <template #list="props">
-          <div v-dompurify-html="projectspage.project_item[props.active].intro" class="carousel__text"></div>
+          <div class="text__content">
+                    <client-only>
+          <lottie-vue-player
+            :src="`https://assets7.lottiefiles.com/private_files/lf30_T5tVEx.json`"
+            background-color="#E6F4F1"
+            :speed="1"
+            style="width: 100px; height: 100px"
+            :loop="true"
+            :autoplay="true"
+          ></lottie-vue-player>
+        </client-only>
+            <div v-dompurify-html="projectspage.project_item[props.active].intro" class="carousel__text"></div>
+          </div>
             <b-carousel-list
                 v-model="props.active"
                 :data="getImages"
@@ -102,6 +114,7 @@ export default {
     display: inline-flex;
     flex-wrap: wrap;
     padding-left: 5%;
+    animation: opacity-transition 1s ease-in-out forwards;
 
     li {
       position: relative;
@@ -144,22 +157,45 @@ export default {
     filter: grayscale(100%);
 }
 
+.modal-close{
+
+  &::after {
+    background: #344A53;
+  }
+  &::before {
+    background: #344A53;
+  }
+  &:hover {
+    background: #E3B3E7;
+  }
+}
+
 .carousel {
 
   &.is-overlay {
     min-width: 768px;
     flex-direction: row !important;
     flex-wrap: wrap;
+    animation: opacity-transition .5s ease-in-out forwards;
+    background: #E6F4F1;
   }
 
   &::v-deep .carousel-items {
 
     width: 70%;
     height: 80%;
+    background-color: #6dcff2;
+    border-radius: 8px;
 
     figure {
       height: 100%;
+      width: 100%;
       display: flex;
+
+      img {
+        object-fit: contain;
+        object-position: center;
+      }
     }
   }
 
@@ -173,19 +209,29 @@ export default {
       img {
         object-fit: cover;
         height: 100%;
+
+        &:hover {
+          filter: grayscale(0%);
+          cursor: pointer;
+        }
       }
       }
     }
   }
 }
+.text__content {
+  width: 25%;
+  margin: auto;
+  height: 70%;
 
 .carousel__text {
-  width: 30%;
-  background: white;
-  height: 70%;
-  margin-top: 5%;
+  background: #EBFCFF;
   display: flex;
+  height: 90%;
   justify-content: center;
   align-items: center;
+  border-radius: 8px;
+  border: 1px solid #00A5E5;
+}
 }
 </style>

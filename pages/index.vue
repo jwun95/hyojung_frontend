@@ -15,7 +15,7 @@
           ></lottie-vue-player>
         </client-only>
       </div>
-      <div class="banner__title flex-column">
+      <div class="banner__title flex-column title-word-1">
         <span v-dompurify-html="homepage.text"></span>
       </div>
     </section>
@@ -63,6 +63,7 @@ export default {
     width: 50%;
     font-size: 3.8rem;
     letter-spacing: 0.5rem;
+    animation: color-animation 3s linear infinite;
   }
 }
 
