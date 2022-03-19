@@ -63,7 +63,19 @@ export default {
     width: 50%;
     font-size: 3.8rem;
     letter-spacing: 0.5rem;
-    animation: color-animation 3s linear infinite;
+      background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-clip: text;
+  background-size: 200% auto;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
   }
 }
 

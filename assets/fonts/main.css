@@ -15,8 +15,8 @@
 
 @font-face {
     font-family: 'Gangwon';
-    src: url('~assets/fonts/collections/Gangwon.ttf') format('opentype');
-    /* src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff'); */
+    /* src: url('~assets/fonts/collections/Gangwon.ttf') format('opentype'); */
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
