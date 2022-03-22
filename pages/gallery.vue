@@ -1,21 +1,21 @@
 <template>
   <div>
-    <article class="projects pt-6">
+    <article class="gallery pt-6">
       <div
-        class="projects__intro is-size-4 has-text-weight-semibold is-flex is-flex-direction-row-reverse has-text-centered"
+        class="gallery__intro is-size-4 has-text-weight-semibold is-flex is-flex-direction-row-reverse has-text-centered"
       >
-        <span v-dompurify-html="projectspage.text"></span>
+        <span v-dompurify-html="gallerypage.text"></span>
       </div>
       <Loading v-if="$fetchState.pending" />
-      <section v-else class="projects__main mt-6 mb-6">
-        <ul class="projects__items">
+      <section v-else class="gallery__main mt-6 mb-6">
+        <ul class="gallery__items">
           <li
-            v-for="(item, idx) in projectspage.project_item"
+            v-for="(item, idx) in gallerypage.gallery_item"
             :key="idx"
-            class="project__item my-3 mx-3"
+            class="gallery__item my-3 mx-3"
             @click="switchGallery(true, idx)"
           >
-            <img :src="item.image.file" alt="project-image" />
+            <img :src="item.image.file" alt="gallery-image" />
           </li>
         </ul>
       </section>
@@ -31,7 +31,7 @@
     >
       <b-carousel-item v-for="(item, idx) in getImages" :key="idx">
         <figure class="image">
-          <img :src="item.image" alt="project-image" />
+          <img :src="item.image" alt="gallery-image" />
         </figure>
       </b-carousel-item>
       <template #list="props">
@@ -47,7 +47,7 @@
             ></lottie-vue-player>
           </client-only>
           <div
-            v-dompurify-html="projectspage.project_item[props.active].intro"
+            v-dompurify-html="gallerypage.gallery_item[props.active].intro"
             class="carousel__text"
           ></div>
         </div>
@@ -72,7 +72,7 @@
 
 <script>
 export default {
-  name: 'ProjectsPage',
+  name: 'GalleryPage',
   data() {
     return {
       modalStatus: false,
@@ -84,7 +84,8 @@ export default {
     }
   },
   async fetch() {
-    await this.$store.dispatch(`projectspage/getItem`).catch((e) => {
+    await this.$store.dispatch(`gallerypage/getItem`)
+    .catch((e) => {
       if (e.response.status) {
         this.$nuxt.error({
           statusCode: e.response.status,
@@ -94,12 +95,12 @@ export default {
     })
   },
   computed: {
-    projectspage() {
-      return this.$store.state.projectspage.item
+    gallerypage() {
+      return this.$store.state.gallerypage.item
     },
     getImages() {
       const items = []
-      const images = this.$store.state.projectspage.item.project_item
+      const images = this.$store.state.gallerypage.item.gallery_item
       images.forEach((element) => {
         items.push({ image: element.image.file })
       })
@@ -123,7 +124,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.projects {
+.gallery {
   &__items {
     width: 100%;
     display: inline-flex;
