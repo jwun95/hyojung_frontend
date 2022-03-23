@@ -58,8 +58,24 @@ font {
   display: none !important;
 }
 
-.richtext-fullwidth {
-  width: 40%;
+.richtext {
+
+  img {
+    object-fit: contain;
+  }
+
+  &-fullwidth {
+    display: flex;
+    justify-content: center;
+  }
+  &-right {
+    display: flex;
+    justify-content: flex-end;
+  }
+  &-left {
+    display: flex;
+    justify-content: flex-start;
+  }
 }
 
 .d-block.text-center {
