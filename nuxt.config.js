@@ -33,7 +33,6 @@ export default {
     '~/plugins/lottie-vue-player.client.js',
     { src: '~/plugins/dompurify.js', mode: 'client' },
     { src: '~/plugins/globals.js' },
-    { src: '~/plugins/youtube.js', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
