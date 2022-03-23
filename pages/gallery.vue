@@ -27,6 +27,8 @@
       with-carousel-list
       :indicator="false"
       :overlay="gallery"
+      icon-size="is-large"
+      :arrow-hover="false"
       @click="switchGallery(true)"
     >
       <b-carousel-item v-for="(item, idx) in getImages" :key="idx">
@@ -202,6 +204,14 @@ export default {
     height: 80%;
     background-color: #fff;
     border-radius: 8px;
+
+    .carousel-arrow .icon {
+      border: 1px solid transparent;
+
+      &:hover {
+        color: grey;
+      }
+    }
 
     figure {
       height: 100%;

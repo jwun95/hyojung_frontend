@@ -3,7 +3,7 @@
     <NuxtLink to="/" class="nav__title"><img :src="logo" alt="logo"></NuxtLink>
     <ul class="nav__items">
         <li class="item"><NuxtLink to="/" :class="{'active' : currentSlug === 'index'}">Home</NuxtLink></li>
-        <li class="item"><NuxtLink to="/projects" :class="{'active' : currentSlug === 'projects'}">Projects</NuxtLink></li>
+        <li class="item"><NuxtLink to="/projects" :class="{'active' : currentSlug === 'projects' || currentSlug === 'projects-id'}">Projects</NuxtLink></li>
         <li class="item"><NuxtLink to="/gallery" :class="{'active' : currentSlug === 'gallery'}">Gallery</NuxtLink></li>
         <li class="item"><NuxtLink to="/info" :class="{'active' : currentSlug === 'info'}">Info</NuxtLink></li>
     </ul>

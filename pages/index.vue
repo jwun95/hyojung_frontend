@@ -15,12 +15,11 @@
           ></lottie-vue-player>
         </client-only>
       </div>
-      <div class="banner__title flex-column title-word-1">
-        <span v-dompurify-html="homepage.text"></span>
-      </div>
+      <pre v-dompurify-html="homepage.text" class="banner__title flex-column">
+      </pre>
     </section>
     <section class="intro flex-column">
-      <span v-dompurify-html="homepage.intro"></span>
+      <pre v-dompurify-html="homepage.intro"></pre>
     </section>
   </div>
 </template>
@@ -47,6 +46,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+pre {
+  background: white;
+}
 .banner {
   margin-top: 0.5rem;
   border-bottom: 2px solid $primary;

@@ -3,7 +3,9 @@
     <Loading v-if="$fetchState.pending" />
     <div v-else class="profile">
       <section class="profile__image flex-row">
-        <img :src="infopage.profile_image.file" alt="profile-image" />
+        <div class="image-figure">
+          <img :src="profile_image.file" alt="profile-image" />
+        </div>
       </section>
       <section
         class="profile__text is-flex is-flex-direction-column is-flex-wrap-wrap is-justify-content-center"
@@ -23,10 +25,15 @@ export default {
   name: 'InfoPage',
   data() {
     return {
+      profile_image: {file:''}
     }
   },
   async fetch() {
-    await this.$store.dispatch(`infopage/getItem`).catch((e) => {
+    await this.$store.dispatch(`infopage/getItem`)
+    .then((response) => {
+      this.profile_image.file = response.data.profile_image.file;
+    })
+    .catch((e) => {
       if (e.response.status) {
         this.$nuxt.error({
           statusCode: e.response.status,
@@ -51,10 +58,16 @@ export default {
   &__image {
     width: 40%;
 
+    .image-figure {
+      text-align: center;
+
     img {
+      object-fit: contain;
+      object-position: center;
       border-radius: 50%;
-      width: 20rem;
-      height: 20rem;
+      width: 15rem;
+      height: 15rem;
+    }
     }
   }
 
