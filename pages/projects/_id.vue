@@ -16,18 +16,20 @@
         </div>
       </div>
       <div class="project-content p-6">
+        <div v-if="project.video_url" class="content-video">
         <client-only>
                   <iframe
           width="560"
           height="315"
-          :src="`https://www.youtube.com/embed/`+videoUrl"
+          :src="`https://www.youtube.com/embed/`+project.video_url"
           title="YouTube video player"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
         ></iframe>
         </client-only>
-        <div class="mt-6 content-text">
+        </div>
+                <div class="mt-6 content-text">
           <div v-dompurify-html="project.content"></div>
         </div>
       </div>
@@ -45,7 +47,6 @@ export default {
   name: 'ProjectsPage',
   data() {
     return {
-      videoUrl: '9bZkp7q19f0',
       doc: {file: '', title: ''},
       playerVars: {
         autoplay: 1,
@@ -106,6 +107,11 @@ export default {
   &__date {
     width: 13%;
   }
+}
+
+.content-video {
+  width: 100%;
+  text-align: center;
 }
 
 .content-text {
