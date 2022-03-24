@@ -49,7 +49,7 @@
             ></lottie-vue-player>
           </client-only>
           <div
-            v-dompurify-html="gallerypage.gallery_item[props.active].intro"
+            v-dompurify-html="getItems[props.active].intro"
             class="carousel__text"
           ></div>
         </div>
@@ -96,7 +96,7 @@ export default {
       }
     })
   },
-  fetchDelay: 800,
+  fetchDelay: 1000,
   computed: {
     gallerypage() {
       return this.$store.state.gallerypage.item;
@@ -107,7 +107,10 @@ export default {
       images.forEach((element) => {
         items.push({ image: element.image.file })
       })
-      return items.reverse()
+      const sortItems = items.sort(function (a, b) {
+        return a.sort_order - b.sort_order
+      });
+      return sortItems.reverse()
     },
     getItems() {
       const items = []
@@ -115,7 +118,10 @@ export default {
       images.forEach((element) => {
         items.push(element)
       })
-      return items.reverse()
+      const sortItems = items.sort(function (a, b) {
+        return a.sort_order - b.sort_order
+      });
+      return sortItems.reverse()
     }
   },
   methods: {

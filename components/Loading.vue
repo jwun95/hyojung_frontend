@@ -8,11 +8,22 @@
             :src="lottie"
             background-color="#fff"
             :speed="1"
-            style="width: 768px; height: 638px"
+            style="width: 500px; height: 400px"
             :loop="true"
             :autoplay="true"
           ></lottie-vue-player>
         </client-only>
+        <div class="waviy">
+             <span style="--i:1">L</span>
+   <span style="--i:2">o</span>
+   <span style="--i:3">a</span>
+   <span style="--i:4">d</span>
+   <span style="--i:5">i</span>
+   <span style="--i:6">n</span>
+   <span style="--i:7">g</span>
+   <span style="--i:8">.</span>
+   <span style="--i:9">.</span>
+        </div>
   </div>
 </template>
 
@@ -32,6 +43,18 @@
 
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.waviy {
+  font-size: 60px;
+
+  span {
+    display: inline-block;
+    animation: waviy 1s infinite;
+    animation-delay: calc(.1s * var(--i));
+  }
 }
 
 

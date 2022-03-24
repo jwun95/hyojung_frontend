@@ -2,6 +2,7 @@
   <div>
     <Loading v-if="$fetchState.pending" />
     <div v-else class="profile">
+
       <section class="profile__image flex-row">
         <div class="image-figure">
           <img :src="profile_image.file" alt="profile-image" />
@@ -41,7 +42,7 @@ export default {
       }
     })
   },
-  fetchDelay: 800,
+  fetchDelay: 1000,
   computed: {
     infopage() {
       return this.$store.state.infopage.item

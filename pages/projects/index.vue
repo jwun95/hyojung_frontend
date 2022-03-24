@@ -42,7 +42,7 @@ export default {
     await this.$store.dispatch(`projectspage/getList`)
     await this.$store.dispatch(`projectspage/getPage`)
   },
-  fetchDelay: 800,
+  fetchDelay: 1000,
   computed: {
     projectspage() {
       return this.$store.state.projectspage.page

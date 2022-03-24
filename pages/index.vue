@@ -39,7 +39,7 @@ export default {
       }
     })
   },
-  fetchDelay: 800,
+  fetchDelay: 1000,
   computed: {
     homepage() {
       return this.$store.state.homepage.item
@@ -72,6 +72,7 @@ pre {
     justify-content: space-around;
     font-size: 3.8rem;
     letter-spacing: 0.5rem;
+    line-height: 1.5em;
       background-image: linear-gradient(
     -225deg,
     #231557 0%,
