@@ -75,7 +75,6 @@ export default {
 <style lang="scss" scoped>
 .project {
   padding: 0 6rem 0 6rem;
-  font-family: 'Gangwon','Hubballi' !important;
 
   &-title {
     height: 15rem;

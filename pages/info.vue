@@ -77,7 +77,6 @@ export default {
   }
 
   .profile__content {
-    font-family: 'Hubballi', 'IBM Plex';
     width: 60%;
     opacity: 0;
     animation: flying 0.5s ease-in-out forwards;

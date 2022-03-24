@@ -88,7 +88,6 @@ pre {
 
 .intro {
   height: 18rem;
-  font-family: 'Hubballi', 'IBM Plex';
   font-size: 1.2rem;
   text-align: center;
 }
