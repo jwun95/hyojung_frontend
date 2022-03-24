@@ -59,6 +59,11 @@ export default {
       this.doc.file = response.data.doc.file;
       this.doc.title = response.data.doc.title;
     })
+    .catch((e) => {
+        this.$nuxt.error({
+          statusCode: 404,
+        })
+    })
     await this.$store.dispatch(`projectspage/getPage`)
   },
   computed: {
@@ -101,7 +106,10 @@ export default {
   &__title {
     width: 80%;
     a {
-      color: black;
+      color: blue;
+      &:hover {
+        color: red;
+      }
     }
   }
   &__date {
@@ -125,6 +133,10 @@ export default {
     height: 2rem;
     text-align: center;
     background: $primary-dark;
+
+    &:active {
+      transform: scale(1.1);
+    }
   }
 }
 </style>

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <article class="gallery pt-6">
+    <Loading v-if="$fetchState.pending" />
+    <article v-else class="gallery pt-6">
       <div
         class="gallery__intro is-size-4 has-text-weight-semibold is-flex is-flex-direction-row-reverse has-text-centered"
       >
         <span v-dompurify-html="gallerypage.text"></span>
       </div>
-      <Loading v-if="$fetchState.pending" />
-      <section v-else class="gallery__main mt-6 mb-6">
+      <section class="gallery__main mt-6 mb-6">
         <ul class="gallery__items">
           <li
             v-for="(item, idx) in getItems"
@@ -92,11 +92,11 @@ export default {
       if (e.response.status) {
         this.$nuxt.error({
           statusCode: e.response.status,
-          message: e.response.data.message,
         })
       }
     })
   },
+  fetchDelay: 800,
   computed: {
     gallerypage() {
       return this.$store.state.gallerypage.item;

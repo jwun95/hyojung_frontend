@@ -1,16 +1,40 @@
 <template>
-    <div class="loading">
+  <div class="loading__component">
+    <!-- <div class="loading">
         <span></span>
-    </div>
+    </div> -->
+        <client-only>
+          <lottie-vue-player
+            :src="lottie"
+            background-color="#fff"
+            :speed="1"
+            style="width: 768px; height: 638px"
+            :loop="true"
+            :autoplay="true"
+          ></lottie-vue-player>
+        </client-only>
+  </div>
 </template>
 
 <script>
     export default {
-        name: 'LoadingComponent'
+        name: 'LoadingComponent',
+        data() {
+          return  {
+            lottie: 'https://assets10.lottiefiles.com/datafiles/ogIQ10UnwnKiBZS/data.json'
+          }
+        }
     }
 </script>
 
 <style lang="scss" scoped>
+.loading__component {
+
+  display: flex;
+  justify-content: center;
+}
+
+
 .loading {
   height: 100vh;
   width: 100%;

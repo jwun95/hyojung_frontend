@@ -1,7 +1,8 @@
 <template>
   <div>
     <Loading v-if="$fetchState.pending" />
-    <section v-else class="banner">
+      <div v-else>
+    <section class="banner">
       <div class="banner__image">
         <!--로티 적용-->
         <client-only>
@@ -23,6 +24,7 @@
       <div v-dompurify-html="homepage.intro"></div>
     </section>
   </div>
+  </div>
 </template>
 
 <script>
@@ -33,11 +35,11 @@ export default {
       if (e.response.status) {
         this.$nuxt.error({
           statusCode: e.response.status,
-          message: e.response.data.message,
         })
       }
     })
   },
+  fetchDelay: 800,
   computed: {
     homepage() {
       return this.$store.state.homepage.item

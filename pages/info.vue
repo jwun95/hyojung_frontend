@@ -37,11 +37,11 @@ export default {
       if (e.response.status) {
         this.$nuxt.error({
           statusCode: e.response.status,
-          message: e.response.data.message,
         })
       }
     })
   },
+  fetchDelay: 800,
   computed: {
     infopage() {
       return this.$store.state.infopage.item
