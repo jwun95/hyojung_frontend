@@ -10,7 +10,7 @@
       <section v-else class="gallery__main mt-6 mb-6">
         <ul class="gallery__items">
           <li
-            v-for="(item, idx) in gallerypage.gallery_item"
+            v-for="(item, idx) in getItems"
             :key="idx"
             class="gallery__item my-3 mx-3"
             @click="switchGallery(true, idx)"
@@ -83,6 +83,7 @@ export default {
       al: {
         hasGrayscale: true,
       },
+      pieces: []
     }
   },
   async fetch() {
@@ -98,7 +99,7 @@ export default {
   },
   computed: {
     gallerypage() {
-      return this.$store.state.gallerypage.item
+      return this.$store.state.gallerypage.item;
     },
     getImages() {
       const items = []
@@ -106,8 +107,16 @@ export default {
       images.forEach((element) => {
         items.push({ image: element.image.file })
       })
-      return items
+      return items.reverse()
     },
+    getItems() {
+      const items = []
+      const images = this.$store.state.gallerypage.item.gallery_item
+      images.forEach((element) => {
+        items.push(element)
+      })
+      return items.reverse()
+    }
   },
   methods: {
     switchGallery(value, idx) {
@@ -254,7 +263,7 @@ export default {
     display: flex;
     height: 90%;
     justify-content: center;
-    align-items: center;
+    flex-direction: column;
 
     border-top: 1px solid black;
     border-bottom: 1px solid black;

@@ -75,6 +75,7 @@ export default {
 <style lang="scss" scoped>
 .project {
   padding: 0 6rem 0 6rem;
+  font-family: 'Gangwon','Hubballi' !important;
 
   &-title {
     height: 15rem;
@@ -112,10 +113,6 @@ export default {
 .content-video {
   width: 100%;
   text-align: center;
-}
-
-.content-text {
-  width: 100%;
 }
 
 .project-button {

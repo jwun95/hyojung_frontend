@@ -1,18 +1,21 @@
 <template>
     <div class="project">
-        <section class="project-title flex-row has-text-centered">
-            <span v-dompurify-html="projectspage.main_title"></span>
+        <section class="project-title">
+            <div v-dompurify-html="projectspage.main_title"></div>
         </section>
+
         <section class="project-items">
             <div class="project-items__title table-flex has-text-weight-bold">
                 <div class="table-no">No</div>
                 <div class="table-title">Title</div>
                 <div class="table-date">Date</div>
             </div>
+            <div class="reverse">
             <div v-for="(item, idx) in projects" :key="idx" class="project-items__item table-flex">
                 <div class="table-no">{{ idx+1 }}</div>
                 <div class="table-title"><NuxtLink :to="{name: 'projects-id', params: {id: item.id}}">{{item.title}}</NuxtLink></div>
                 <div class="table-date">{{ item.date }}</div>
+            </div>
             </div>
         </section>
     </div>
@@ -52,7 +55,14 @@
 
     &-title {
         height: 15rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
     }
+}
+.reverse {
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .table-flex {

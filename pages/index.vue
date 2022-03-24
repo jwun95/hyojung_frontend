@@ -15,11 +15,12 @@
           ></lottie-vue-player>
         </client-only>
       </div>
-      <pre v-dompurify-html="homepage.text" class="banner__title flex-column">
-      </pre>
+      <div class="banner__title ">
+        <div v-dompurify-html="homepage.text" class="title__text"></div>
+      </div>
     </section>
     <section class="intro flex-column">
-      <pre v-dompurify-html="homepage.intro"></pre>
+      <div v-dompurify-html="homepage.intro"></div>
     </section>
   </div>
 </template>
@@ -64,6 +65,9 @@ pre {
 
   &__title {
     width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     font-size: 3.8rem;
     letter-spacing: 0.5rem;
       background-image: linear-gradient(

@@ -28,7 +28,7 @@ button {
 }
 
 font {
-  font-family: 'Gangwon','Hubballi';
+  // font-family: 'Gangwon','Hubballi';
 }
 
 .page-enter-active,
@@ -58,30 +58,26 @@ font {
   display: none !important;
 }
 
-.richtext {
-
-  img {
-    object-fit: contain;
-  }
-
-  &-fullwidth {
-    display: flex;
-    justify-content: center;
-  }
-  &-right {
-    display: flex;
-    justify-content: flex-end;
-  }
-  &-left {
-    display: flex;
-    justify-content: flex-start;
-  }
+h1 {
+  font-size: 2em !important;
 }
 
-.d-block.text-center {
-  text-align: center;
+h2 {
+  font-size: 1.5em !important;
 }
 
-.d-block.text-right {
-  text-align: end;
+h3 {
+  font-size: 1.17em !important;
+}
+
+h4 {
+  font-size: 1em !important;
+}
+
+h5 {
+  font-size: 0.83em !important;
+}
+
+h6 {
+  font-size: 0.67em !important;
 }
