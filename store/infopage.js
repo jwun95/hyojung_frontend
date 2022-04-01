@@ -14,4 +14,9 @@ export const actions = {
     commit('setData', response.data)
     return response
   },
+
+  async postItem({ commit }, data) {
+    const response = await this.$axios.post(`/info_page/`, data)
+    return response
+  }
 }

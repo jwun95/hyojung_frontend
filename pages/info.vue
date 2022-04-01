@@ -35,28 +35,28 @@
           <div class="content__top is-flex my-6">
             <div class="name-input mr-6 border-bottom">
               <div class="input-title"><span>Name</span><span>  이름</span></div>
-              <b-input value="Kevin Garvey"></b-input>
+              <b-input v-model="form.name"></b-input>
             </div>
             <div class="email-input border-bottom">
               <div class="input-title">
                 <span>Email</span><span>  이메일</span>
-                <b-input value="Kevin Garvey"></b-input>
+                <b-input v-model="form.email"></b-input>
               </div>
             </div>
           </div>
           <div class="content__middle border-bottom my-6">
             <div class="input-title"><span>Subject</span><span>  제목</span></div>
-            <b-input value="Kevin Garvey"></b-input>
+            <b-input v-model="form.title"></b-input>
           </div>
           <div class="content__bottom border-bottom mt-6">
             <div class="input-title">
               <span>Message</span><span>  메시지</span>
-              <b-input value="Kevin Garvey" type="textarea"></b-input>
+              <b-input v-model="form.content" type="textarea"></b-input>
             </div>
           </div>
         </div>
         <div class="mt-5 mb-6">
-          <button class="contact__button">Submit</button>
+          <button class="contact__button" @click="submitForm()">Submit</button>
         </div>
       </section>
     </div>
@@ -69,6 +69,12 @@ export default {
   data() {
     return {
       profile_image: { file: '' },
+      form: {
+        name: null,
+        email: null,
+        title: null,
+        content: null
+      }
     }
   },
   async fetch() {
@@ -91,6 +97,29 @@ export default {
       return this.$store.state.infopage.item
     },
   },
+  methods: {
+    async submitForm() {
+
+      const data = {
+        title: this.form.title,
+        content: this.form.content,
+        name: this.form.name,
+        email_addr: this.form.email
+      }
+
+      await this.$store.dispatch(`infopage/postItem`, data)
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((e) => {
+        if (e.response.status) {
+          this.$nuxt.error({
+            statusCode: e.response.status,
+          })
+        }
+      })
+    }
+  }
 }
 </script>
 
