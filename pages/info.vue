@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @mousewheel="wheelEvent">
     <Loading v-if="$fetchState.pending" />
     <div v-else class="info is-flex is-flex-direction-column">
       <div class="profile">
@@ -25,7 +25,7 @@
       </div>
 
       <div class="has-text-centered">
-        <a class="button is-size-3 bottom--move" href="#contact" :active="active"><i class="fa-solid fa-angle-down"></i></a>
+        <button class="is-size-3 bottom--move" @click="goContact"><i class="fa-solid fa-angle-down"></i></button>
       </div>
 
       <form v-if="!submit" id="contact" class="contact is-flex flex-column" @submit.prevent="submitForm">
@@ -99,7 +99,6 @@ export default {
       recaptcha: false,
       submit: false,
       lottie: "https://assets7.lottiefiles.com/packages/lf20_b4ojt04m.json",
-      active: false,
     }
   },
   async fetch() {
@@ -123,12 +122,8 @@ export default {
     },
   },
   beforeMount () {
-    window.addEventListener('scroll', this.handleScroll);
+    // window.addEventListener('scroll', this.handleScroll);
   },
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
-
   methods: {
     async submitForm() {
       try {
@@ -161,12 +156,15 @@ export default {
     goContact() {
       if (process.client) {
         window.scrollTo(0, 1018)
-        const windowHeight = window.innerHeight;
-        console.log(windowHeight)
       }
     },
-    handleScroll() {
-      this.active = true
+    wheelEvent(e) {
+      if (e.deltaY > 0) {
+        window.scrollTo(0, 1018)
+      }
+      else if(e.deltaY < 0) {
+        window.scrollTo(0, 0)
+      }
     }
   },
 }
@@ -240,12 +238,7 @@ export default {
 .bottom--move {
   border: none;
   color: grey;
-  opacity: 0;
   height: 2rem;
-
-  &[active] {
-    opacity: 1;
-    animation: bounce-in 0.5s;
-  }
+  animation: bounce-in 2s infinite;
 }
 </style>
