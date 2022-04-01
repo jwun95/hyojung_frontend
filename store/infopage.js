@@ -15,8 +15,10 @@ export const actions = {
     return response
   },
 
+  // contact 보내기
   async postItem({ commit }, data) {
+
     const response = await this.$axios.post(`/info_page/`, data)
     return response
-  }
+  },
 }

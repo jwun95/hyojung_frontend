@@ -54,6 +54,7 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/recaptcha',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -73,5 +74,12 @@ export default {
   build: {},
   env: {
     serverUrl: process.env.SERVER_URL || 'http://localhost:8000',
+  },
+
+  recaptcha: {
+    hideBadge: true, // Hide badge element (v3 & v2 via size=invisible)
+    language: 'ko', // Recaptcha language (v2)
+    siteKey: '6Ld18jUfAAAAAADRlQdpYwK2c-RioAH3lDVpT2_t',
+    version: 2, // Version
   },
 }
