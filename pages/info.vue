@@ -23,10 +23,12 @@
           </div>
         </section>
       </div>
+
       <div class="has-text-centered">
-        <button class="is-size-3">&#8595;</button>
+        <a class="button is-size-3 bottom--move" href="#contact" :active="active"><i class="fa-solid fa-angle-down"></i></a>
       </div>
-      <form v-if="!submit" class="contact is-flex flex-column" @submit.prevent="submitForm">
+
+      <form v-if="!submit" id="contact" class="contact is-flex flex-column" @submit.prevent="submitForm">
         <div class="contact__title has-text-centered">
           <h1>Message Me</h1>
           <h3>문의주세요</h3>
@@ -96,7 +98,8 @@ export default {
       },
       recaptcha: false,
       submit: false,
-      lottie: "https://assets7.lottiefiles.com/packages/lf20_b4ojt04m.json"
+      lottie: "https://assets7.lottiefiles.com/packages/lf20_b4ojt04m.json",
+      active: false,
     }
   },
   async fetch() {
@@ -119,6 +122,13 @@ export default {
       return this.$store.state.infopage.item
     },
   },
+  beforeMount () {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+
   methods: {
     async submitForm() {
       try {
@@ -148,6 +158,16 @@ export default {
         console.log('Login error:', error)
       }
     },
+    goContact() {
+      if (process.client) {
+        window.scrollTo(0, 1018)
+        const windowHeight = window.innerHeight;
+        console.log(windowHeight)
+      }
+    },
+    handleScroll() {
+      this.active = true
+    }
   },
 }
 </script>
@@ -214,6 +234,18 @@ export default {
     color: white;
     height: 2rem;
     width: 5rem;
+  }
+}
+
+.bottom--move {
+  border: none;
+  color: grey;
+  opacity: 0;
+  height: 2rem;
+
+  &[active] {
+    opacity: 1;
+    animation: bounce-in 0.5s;
   }
 }
 </style>
