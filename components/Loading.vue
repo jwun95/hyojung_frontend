@@ -32,7 +32,7 @@
         name: 'LoadingComponent',
         data() {
           return  {
-            lottie: 'https://assets10.lottiefiles.com/datafiles/ogIQ10UnwnKiBZS/data.json'
+            lottie: 'https://assets5.lottiefiles.com/packages/lf20_raiw2hpe.json'
           }
         }
     }

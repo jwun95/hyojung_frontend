@@ -1,7 +1,7 @@
 <template>
   <div>
     <Loading v-if="$fetchState.pending" />
-    <div v-else class="project">
+    <div v-else class="project mb-6">
       <section class="project-title">
         <div v-dompurify-html="projectspage.main_title"></div>
       </section>

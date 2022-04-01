@@ -3,14 +3,14 @@
     <Loading v-if="$fetchState.pending" />
       <div v-else>
     <section class="banner">
-      <div class="banner__image">
+      <div class="banner__image flex-row">
         <!--로티 적용-->
         <client-only>
           <lottie-vue-player
             :src="homepage.url"
             :background-color="homepage.background_color"
             :speed="homepage.speed"
-            style="width: 768px; height: 638px"
+            :style="`width: ${homepage.lottie_width}px; height: ${homepage.lottie_height}px`"
             :loop="homepage.loop"
             :autoplay="homepage.auto_play"
           ></lottie-vue-player>

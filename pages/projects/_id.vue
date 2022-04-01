@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="project-content p-6">
-        <div v-if="project.video_url" class="content-video">
+        <div v-if="project.video_url" class="content-video mb-6">
         <client-only>
                   <iframe
           width="560"
@@ -29,8 +29,8 @@
         ></iframe>
         </client-only>
         </div>
-                <div class="mt-6 content-text">
-          <div v-dompurify-html="project.content"></div>
+        <div v-dompurify-html="project.content" class="content-text">
+          <!-- <div v-dompurify-html="project.content"></div> -->
         </div>
       </div>
     </section>
@@ -138,5 +138,10 @@ export default {
       transform: scale(1.1);
     }
   }
+}
+
+.content-text {
+  font-size: 1.4rem;
+  overflow: hidden;
 }
 </style>
