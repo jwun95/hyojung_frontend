@@ -37,12 +37,12 @@
           <div class="content__top is-flex my-6">
             <div class="name-input mr-6 border-bottom">
               <div class="input-title"><span>Name</span><span> 이름</span></div>
-              <b-input v-model="form.name"></b-input>
+              <b-input ref="name" v-model="form.name" placeholder="이름"></b-input>
             </div>
             <div class="email-input border-bottom">
               <div class="input-title">
                 <span>Email</span><span> 이메일</span>
-                <b-input v-model="form.email"></b-input>
+                <b-field><b-input ref="email" v-model="form.email" placeholder="이메일"></b-input></b-field>
               </div>
             </div>
           </div>
@@ -50,12 +50,12 @@
             <div class="input-title">
               <span>Subject</span><span> 제목</span>
             </div>
-            <b-input v-model="form.title"></b-input>
+            <b-input ref="title" v-model="form.title" placeholder="제목"></b-input>
           </div>
           <div class="content__bottom border-bottom mt-6">
             <div class="input-title">
               <span>Message</span><span> 메시지</span>
-              <b-input v-model="form.content" type="textarea"></b-input>
+              <b-input ref="content" v-model="form.content" type="textarea" placeholder="메시지"></b-input>
             </div>
           </div>
         </div>
@@ -126,6 +126,24 @@ export default {
   },
   methods: {
     async submitForm() {
+
+      if (this.form.name === "" || this.form.name === null) {
+        this.$refs.name.focus();
+        return false;
+      }
+      else if (this.form.email === "" || this.form.email === null) {
+        this.$refs.email.focus();
+        return false;
+      }
+      else if (this.form.title === "" || this.form.title === null) {
+        this.$refs.title.focus();
+        return false;
+      }
+      else if (this.form.content === "" || this.form.content === null) {
+        this.$refs.content.focus();
+        return false;
+      }
+
       try {
         const reToken = await this.$recaptcha.getResponse()
 
@@ -232,6 +250,13 @@ export default {
     color: white;
     height: 2rem;
     width: 5rem;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  &__content {
+    max-width: 458px;
   }
 }
 
