@@ -27,7 +27,7 @@
 
     main {
       min-height: 70.7vh;
-      font-family: 'Gangwon','Hubballi', 'IBM Plex' !important;
+      font-family: 'Helvetica','Hubballi', 'IBM Plex';
     }
 }
 </style>
