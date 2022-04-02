@@ -55,7 +55,7 @@
           <div class="content__bottom border-bottom mt-6">
             <div class="input-title">
               <span>Message</span><span> 메시지</span>
-              <b-input ref="content" v-model="form.content" type="textarea" placeholder="메시지"></b-input>
+              <b-input ref="content" v-model="form.content" style="border:none" type="textarea" placeholder="메시지"></b-input>
             </div>
           </div>
         </div>
@@ -257,6 +257,15 @@ export default {
   }
   &__content {
     max-width: 458px;
+
+    &::v-deep input {
+      border: none !important;
+    }
+
+    &::v-deep textarea {
+      border: none !important;
+      resize: none;
+    }
   }
 }
 

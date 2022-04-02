@@ -90,7 +90,7 @@ pre {
 }
 
 .intro {
-  height: 18rem;
+  min-height: 18rem;
   font-size: 1.2rem;
   text-align: center;
 }
