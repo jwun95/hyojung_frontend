@@ -10,7 +10,7 @@
       <section class="gallery__main mt-6 mb-6">
         <ul class="gallery__items">
           <li
-            v-for="(item, idx) in getItems"
+            v-for="(item, idx) in scrollData"
             :key="idx"
             class="gallery__item my-3 mx-3"
             @click="switchGallery(true, idx)"
@@ -18,6 +18,9 @@
             <img :src="item.image.file" alt="gallery-image" />
           </li>
         </ul>
+        <client-only>
+          <infinite-loading spinner="spiral" @infinite="infiniteHandler"></infinite-loading>
+        </client-only>
       </section>
     </article>
     <b-carousel
@@ -83,7 +86,9 @@ export default {
       al: {
         hasGrayscale: true,
       },
-      pieces: []
+      pieces: [],
+      page: 0,
+      scrollData: [],
     }
   },
   async fetch() {
@@ -107,10 +112,7 @@ export default {
       images.forEach((element) => {
         items.push({ image: element.image.file })
       })
-      const sortItems = items.sort(function (a, b) {
-        return a.sort_order - b.sort_order
-      });
-      return sortItems.reverse()
+      return items.reverse()
     },
     getItems() {
       const items = []
@@ -118,10 +120,11 @@ export default {
       images.forEach((element) => {
         items.push(element)
       })
-      const sortItems = items.sort(function (a, b) {
-        return a.sort_order - b.sort_order
-      });
-      return sortItems.reverse()
+
+      return items.reverse().slice(0, 9 * this.page)
+    },
+    itemLength() {
+      return this.$store.state.gallerypage.item.gallery_item.length;
     }
   },
   methods: {
@@ -135,6 +138,21 @@ export default {
         document.documentElement.classList.remove('is-clipped')
         this.modalStatus = false
       }
+    },
+    infiniteHandler($state) {
+      // 스크롤이 페이지 하단에 위치해도 약간의 딜레이를 주고 데이터를 가져옴
+      setTimeout(async () => {
+        this.page++;
+        const response = await this.getItems
+        if (this.itemLength === this.scrollData.length) {
+          $state.complete();
+        }
+        else if (response.length > 1) {
+          this.scrollData = []
+          response.forEach((item) => this.scrollData.push(item));
+          $state.loaded();
+        }
+      }, 500);
     },
   },
 }
