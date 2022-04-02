@@ -56,8 +56,11 @@ export default {
   async fetch() {
     await this.$store.dispatch(`projectspage/getItem`, this.$route.params.id)
     .then((response)=> {
-      this.doc.file = response.data.doc.file;
-      this.doc.title = response.data.doc.title;
+
+      if (response.data.doc != null) {
+        this.doc.file = response.data.doc.file;
+        this.doc.title = response.data.doc.title;
+      }
     })
     .catch((e) => {
         this.$nuxt.error({
