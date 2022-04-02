@@ -58,6 +58,11 @@ export default {
           date: element.date,
         })
       })
+
+      projectList.sort((a, b) => {
+        return a.id - b.id
+      })
+
       return projectList
     },
   },
