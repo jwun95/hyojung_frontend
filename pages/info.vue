@@ -97,7 +97,7 @@ export default {
         content: null,
       },
       recaptcha: false,
-      submit: true,
+      submit: false,
       lottie: "https://assets7.lottiefiles.com/packages/lf20_b4ojt04m.json",
     }
   },

@@ -4,7 +4,6 @@
       <div v-else>
     <section class="banner">
       <div class="banner__image flex-row">
-        <!--로티 적용-->
         <client-only>
           <lottie-vue-player
             :src="homepage.url"
