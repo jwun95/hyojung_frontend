@@ -1,5 +1,5 @@
 <template>
-  <div @mousewheel="wheelEvent">
+  <div class="info-page" @mousewheel="wheelEvent">
     <Loading v-if="$fetchState.pending" />
     <div v-else class="info is-flex is-flex-direction-column">
       <div class="profile">
@@ -67,14 +67,14 @@
           <button v-if="recaptcha" class="contact__button" type="submit">Submit</button>
         </div>
       </form>
-      <div v-else class="flex-column mt-6">
+      <div v-else class="submit--completion flex-column mt-6">
         <span class="is-size-3">확인하고 연락드릴게요!</span>
         <client-only>
           <lottie-vue-player
             :src="lottie"
             background-color="#fff"
             :speed="1"
-            style="width: 500px; height: 400px"
+            style="width: 350px; height: 250px"
             :loop="false"
             :autoplay="true"
           ></lottie-vue-player>
@@ -97,7 +97,7 @@ export default {
         content: null,
       },
       recaptcha: false,
-      submit: false,
+      submit: true,
       lottie: "https://assets7.lottiefiles.com/packages/lf20_b4ojt04m.json",
     }
   },
@@ -274,5 +274,9 @@ export default {
   color: grey;
   height: 2rem;
   animation: bounce-in 2s infinite;
+}
+
+.submit--completion {
+  height: 76vh;
 }
 </style>

@@ -7,7 +7,8 @@
           <a :href="'//' + item.url" target="_blank"><i :class="item.icon"></i></a>
         </li>
       </ul>
-      <span class="d-footer__copyright">copy right 2022 made by hyojung</span>
+      <p class="d-footer__copyright mt-3">copy right 2022</p>
+      <p class="is-size-7">made by hyojung & jaewoon</p>
     </div>
   </footer>
 </template>
@@ -33,12 +34,6 @@ export default {
         return this.$store.state.settings.item;
       }
     },
-    methods: {
-      /* moveSite(site) {
-        console.log(site)
-        location.href = site;
-      } */
-    }
 }
 </script>
 
@@ -84,6 +79,7 @@ export default {
 
   &__copyright {
     font-size: 0.8rem;
+    display: inline-block;
   }
 }
 </style>
