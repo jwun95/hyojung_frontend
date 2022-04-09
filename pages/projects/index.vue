@@ -28,6 +28,9 @@
           </div>
         </div>
       </section>
+      <Pagination
+        :data-length="3"
+      />
     </div>
   </div>
 </template>

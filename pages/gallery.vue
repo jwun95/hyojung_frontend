@@ -51,8 +51,9 @@
               :autoplay="true"
             ></lottie-vue-player>
           </client-only>
+          <div>{{props.active}}</div>
           <div
-            v-dompurify-html="getItems[props.active].intro"
+            v-dompurify-html="getIntro[props.active].intro"
             class="carousel__text"
           ></div>
         </div>
@@ -113,6 +114,15 @@ export default {
         items.push({ image: element.image.file })
       })
       return items.reverse()
+    },
+    getIntro() {
+      const items = []
+      const images = this.$store.state.gallerypage.item.gallery_item
+      images.forEach((element) => {
+        items.push(element)
+      })
+
+      return items.reverse();
     },
     getItems() {
       const items = []
