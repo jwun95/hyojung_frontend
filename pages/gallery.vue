@@ -51,7 +51,6 @@
               :autoplay="true"
             ></lottie-vue-player>
           </client-only>
-          <div>{{props.active}}</div>
           <div
             v-dompurify-html="getIntro[props.active].intro"
             class="carousel__text"
